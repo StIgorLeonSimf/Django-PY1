@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Detail {% endblock %}
+
+{% block content %}
+
+<div class="container py-5"  >
+
+  <ul>
+    <li><h3>Название: {{ object.title }}</h3></li>
+    <li><h3>Категория:  {{ object.category }}</h3></li>
+    <li><p>{{ object.text|linebreaksbr }}</p></li>
+  </ul>
+</div>
+{% endblock %}
+

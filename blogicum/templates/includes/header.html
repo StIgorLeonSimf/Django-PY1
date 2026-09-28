@@ -1,0 +1,35 @@
+{% load static %}
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'blog:index' %}">
+        <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Блогикум
+      </a>
+      {% with request.resolver_match.view_name as view_name %}
+      <ul class="nav  nav-pills">
+        <li class="nav-item">
+          <a class="nav-link {% if view_name == 'blog:index' or view_name == 'blog:post_detail' or view_name == 'blog:category_posts'%} active {% endif %}" href="{% url 'blog:index' %}">
+            Лента записей
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ">
+            Поиск
+          </a>
+        <li class="nav-item">              
+           <a class="nav-link ">>
+            О проекте
+          </a>
+        </li>
+        <li class="nav-item">
+           <a class="nav-link ">
+            Наши правила
+          </a>
+        </li>
+<!--        -->
+      </ul>
+      {% endwith %}
+    </div>
+  </nav> 
+</header>

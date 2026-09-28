@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} First {% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1>Первый вывод информации</h1>
+  {% for post in page_obj %}
+    <hr>
+    <ul>
+      <li><h5>Название: {{ post.title }}</h5></li>
+      <li><h5>Категория:  {{ post.category }}</h5></li>
+      <li><a href="{% url 'blog:detail' post.id %}">Текст: </a>{{ post.text|truncatewords:10 }}</li>
+      {% if forloop.last %}
+        <hr>
+      {% endif %}
+
+    </ul>
+  {% empty %}
+    <h3>Записи не выбраны</h3>
+  {% endfor %}
+</div>
+{% endblock %}
