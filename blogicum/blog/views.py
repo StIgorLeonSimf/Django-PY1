@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from unicodedata import category
 
@@ -71,11 +71,33 @@ def post_seek(request):
 
 def post(request, pk=None):
     template = 'blog/post.html'
-    form = PostForm(request.POST or None)
+    if pk:
+        instance = get_object_or_404(Post, pk=pk)
+    else:
+        instance = None
+    form = PostForm(request.POST or None, instance=instance)
     context = {'form': form}
     if form.is_valid():
-        form.save()
-        template = 'blog/index.html'
-        page_obj = Post.objects.all()
-        context = {'page_obj': page_obj}
+        instance.save()
+        # template = 'blog/index.html'
+        # page_obj = Post.objects.all()
+        # context = {'page_obj': page_obj}
+        return redirect('blog:index')
+    return render(request, template, context)
+
+
+def delete_post(request, pk=None):
+    template = 'blog/post.html'
+    if pk:
+        instance = get_object_or_404(Post, pk=pk)
+    else:
+        instance = None
+    form = PostForm(request.POST or None, instance=instance)
+    context = {'form': form}
+    if form.is_valid():
+        instance.save()
+        # template = 'blog/index.html'
+        # page_obj = Post.objects.all()
+        # context = {'page_obj': page_obj}
+        return redirect('post:index')
     return render(request, template, context)

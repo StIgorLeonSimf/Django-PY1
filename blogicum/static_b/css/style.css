@@ -1,5 +1,13 @@
-a {
+li a {
     color: #0000cc;
     text-decoration: None;
-
+}
+p a {
+    margin: 20px;
+    color: #0000cc;
+    text-decoration: None;
+}
+div a {
+    color: #0000cc;
+    text-decoration: None;
 }
