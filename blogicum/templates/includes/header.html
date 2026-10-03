@@ -14,7 +14,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link ">
+          <a class="nav-link {% if view_name == 'blog:post_seek' %} active {% endif %}" href="{% url 'blog:post_seek' %}">
             Поиск
           </a>
         <li class="nav-item">              

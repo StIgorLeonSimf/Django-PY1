@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from unicodedata import category
 
 from .models import Post, Category
+from .forms import BlogForm, PostForm
 
 # posts = [
 #     {'id': 1,
@@ -55,8 +56,26 @@ def category(request, pk):
     return render(request, template, context)
 
 
-def post(request):
+def post_seek(request):
+    template = 'blog/post_seek.html'
+    form = BlogForm(request.GET or None)
+    context = {'form': form}
+    if form.is_valid():
+        template = 'blog/index.html'
+        page_obj = Post.objects.filter(title__contains=request.GET['title'])
+        context = {'page_obj': page_obj}
+
+
+    return render(request, template, context)
+
+
+def post(request, pk=None):
     template = 'blog/post.html'
-    if request.method == 'GET':
-        context = {'name': request.GET.get('User_name')}
+    form = PostForm(request.POST or None)
+    context = {'form': form}
+    if form.is_valid():
+        form.save()
+        template = 'blog/index.html'
+        page_obj = Post.objects.all()
+        context = {'page_obj': page_obj}
     return render(request, template, context)
